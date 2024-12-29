@@ -23,6 +23,15 @@ func Run() error {
 		fmt.Println(err)
 		return err
 	}
+	defer app.Rmq.Conn.Close()
+
+	err = app.Rmq.Publish("Hola Alex")
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	app.Rmq.Consume()
 	return nil
 }
 
